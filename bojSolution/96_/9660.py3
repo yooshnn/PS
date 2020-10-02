@@ -1,0 +1,1 @@
+print("CY"if abs(int(input())%7-1)==1else"SK")

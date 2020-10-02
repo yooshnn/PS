@@ -1,0 +1,9 @@
+li=[]
+li.append(int(input()))
+li.append(int(input()))
+li.append(int(input()))
+li.append(int(input()))
+li.append(int(input()))
+li=sorted(li)
+print((li[0]+li[1]+li[2]+li[3]+li[4])//5)
+print(li[2])

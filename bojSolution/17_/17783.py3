@@ -1,0 +1,1 @@
+print("Alice\n1"if int(input())%2<1else"Bob")

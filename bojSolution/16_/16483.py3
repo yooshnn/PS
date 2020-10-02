@@ -1,0 +1,1 @@
+print(int(.5+(int(input())/2)**2))

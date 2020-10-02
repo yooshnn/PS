@@ -1,0 +1,1 @@
+input();s=[max(map(int,input().split()))for i in range(9)];print(["PROBRAIN","GROW","ARGOS","ADMIN","ANT","MOTION","SPG","COMON","ALMIGHTY"][s.index(max(s))])

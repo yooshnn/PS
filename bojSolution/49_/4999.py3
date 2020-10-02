@@ -1,0 +1,1 @@
+print(["no","go"][int(len(input())>=len(input()))])
