@@ -1,49 +1,40 @@
-#include <bits/stdc++.h>
-using namespace std;
-typedef pair<int, int> pii;
+#define DEBUG 0
+#pragma GCC optimize("O3")
+#define return_0 if (DEBUG) cout.flush(), system("pause"); else return 0;
 
-int N;
-int par[1000001];
+#include <bits/stdc++.h>
+#include <ext/rope>
+using namespace std;
+using namespace __gnu_cxx;
+typedef long long ll;
+typedef pair<int, int> pii;
+typedef tuple<int, int, int> tup;
 
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    ios::sync_with_stdio(0); cin.tie(0);
 
-    cin >> N;
-    for (int i = 0; i <= N; ++i) par[i] = -1;
+	int n; cin >> n;
+	vector<int> par(n+1, -1);
+	vector<int> dup(n+1, 1e8);
 
-    priority_queue<pii, vector<pii>, greater<pii> > pque;
-    pque.push({ 0, N });
+	priority_queue<pii, vector<pii>, greater<pii>> que;
+	que.push({0, n});
+	while (!que.empty()) {
+		int i, t; tie(i, t) = que.top(); que.pop();
+		if (t == 1) continue;
+		if (t % 3 == 0 && dup[t/3]>i+1) que.push({i+1, t/3}), par[t/3] = t, dup[t/3]=i+1;
+		if (t % 2 == 0 && dup[t/2]>i+1) que.push({i+1, t/2}), par[t/2] = t, dup[t/2]=i+1;
+		if (dup[t-1]>i+1) que.push({i+1, t-1}), par[t-1] = t, dup[t-1]=i+1;
+	}
 
-    while (!pque.empty()) {
-        int cur, cd; tie(cd, cur) = pque.top(); pque.pop();
+	int t = 1;
+	vector<int> res;
+	while (t != -1) {
+		res.push_back(t);
+		t = par[t];
+	}
+	cout << res.size()-1 << "\n";
+	for (int i = res.size()-1; i >= 0; --i) cout << res[i] << " ";
 
-        if (cur == 1) {
-            if (par[1] == -1) cout << "1\n1";
-            else {
-                vector<int> history(1, 1);
-                int p = 1;
-                while (par[p] != -1) {
-                    p = par[p];
-                    history.push_back(p);
-                }
-                cout << history.size() - 1 << "\n";
-                for (int i = history.size() - 1; i >= 0; --i)
-                    cout << history[i] << " ";
-            }
-        }
-
-        if (cur % 3 == 0 && par[cur / 3] == -1) {
-            par[cur / 3] = cur;
-            pque.push({ cd + 1, cur / 3 });
-        }
-        if (cur % 2 == 0 && par[cur / 2] == -1) {
-            par[cur / 2] = cur;
-            pque.push({ cd + 1, cur / 2 });
-        }
-        if (par[cur - 1] == -1) {
-            par[cur - 1] = cur;
-            pque.push({ cd + 1, cur - 1 });
-        }
-    }
-
+    return_0;
 }
