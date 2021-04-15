@@ -1,0 +1,1 @@
+for t in range(int(input())):print("Case #%d: %s"%(t+1," ".join(input().split()[::-1])))
